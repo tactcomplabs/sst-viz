@@ -1,0 +1,6936 @@
+{
+  "program_options": {
+    "verbose": "0",
+    "stop-at": "0 ns",
+    "print-timing-info": "false",
+    "heartbeat-period": "",
+    "timebase": "1 ps",
+    "partitioner": "sst.single",
+    "timeVortex": "sst.timevortex.priority_queue",
+    "interthread-links": "false",
+    "output-prefix-core": "@x SST Core: "
+  },
+  "global_params": {
+    "hr_router_2_params": {
+      "flit_size": "8B",
+      "input_buf_size": "4kB",
+      "input_latency": "20ns",
+      "link_bw": "4GB/s",
+      "num_vns": "2",
+      "output_buf_size": "4kB",
+      "output_latency": "20ns",
+      "xbar_arb": "merlin.xbar_arb_lru",
+      "xbar_bw": "6GB/s"
+    },
+    "params_LinkControl_3": {
+      "input_buf_size": "1kB",
+      "job_id": "0",
+      "job_size": "64",
+      "link_bw": "4GB/s",
+      "output_buf_size": "1kB",
+      "use_nid_remap": "True",
+      "vn_remap": "[0]"
+    },
+    "params_topoDragonFly_0": {
+      "algorithm": "['minimal', 'adaptive-local']",
+      "global_routes": "absolute",
+      "hosts_per_router": "4",
+      "intergroup_links": "4",
+      "num_groups": "4",
+      "routers_per_group": "8"
+    }
+  },
+  "components": [
+    {
+      "name": "rtr_G0R0",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "0"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2",
+            "global_link_map": "[0, 1, 2, 3, 4, 5, 6, 7, 8, -1, 9, -1, 10, -1, 11, -1]"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_0",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "0",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "0"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_1",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "1",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "1"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_2",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "2",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "2"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_3",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "3",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "3"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G0R1",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "1"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_4",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "4",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "4"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_5",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "5",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "5"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_6",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "6",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "6"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_7",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "7",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "7"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G0R2",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "2"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_8",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "8",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "8"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_9",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "9",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "9"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_10",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "10",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "10"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_11",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "11",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "11"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G0R3",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "3"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_12",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "12",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "12"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_13",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "13",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "13"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_14",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "14",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "14"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_15",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "15",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "15"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G0R4",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "4"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_16",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "16",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "16"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_17",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "17",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "17"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_18",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "18",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "18"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_19",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "19",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "19"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G0R5",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "5"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_20",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "20",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "20"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_21",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "21",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "21"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_22",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "22",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "22"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_23",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "23",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "23"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G0R6",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "6"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_24",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "24",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "24"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_25",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "25",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "25"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_26",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "26",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "26"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_27",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "27",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "27"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G0R7",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "7"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_28",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "28",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "28"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_29",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "29",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "29"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_30",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "30",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "30"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_31",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "31",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "31"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G1R0",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "8"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_32",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "32",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "32"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_33",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "33",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "33"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_34",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "34",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "34"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_35",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "35",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "35"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G1R1",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "9"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_36",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "36",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "36"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_37",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "37",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "37"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_38",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "38",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "38"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_39",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "39",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "39"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G1R2",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "10"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_40",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "40",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "40"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_41",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "41",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "41"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_42",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "42",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "42"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_43",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "43",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "43"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G1R3",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "11"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_44",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "44",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "44"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_45",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "45",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "45"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_46",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "46",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "46"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_47",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "47",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "47"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G1R4",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "12"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_48",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "48",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "48"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_49",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "49",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "49"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_50",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "50",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "50"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_51",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "51",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "51"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G1R5",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "13"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_52",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "52",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "52"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_53",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "53",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "53"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_54",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "54",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "54"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_55",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "55",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "55"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G1R6",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "14"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_56",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "56",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "56"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_57",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "57",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "57"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_58",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "58",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "58"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_59",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "59",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "59"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G1R7",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "15"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_60",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "60",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "60"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_61",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "61",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "61"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_62",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "62",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "62"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_63",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "63",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "63"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G2R0",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "16"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_64",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "0",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "0"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_65",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "1",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "1"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_66",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "2",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "2"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_67",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "3",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "3"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G2R1",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "17"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_68",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "4",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "4"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_69",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "5",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "5"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_70",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "6",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "6"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_71",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "7",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "7"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G2R2",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "18"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_72",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "8",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "8"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_73",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "9",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "9"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_74",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "10",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "10"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_75",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "11",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "11"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G2R3",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "19"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_76",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "12",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "12"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_77",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "13",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "13"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_78",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "14",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "14"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_79",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "15",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "15"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G2R4",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "20"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_80",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "16",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "16"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_81",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "17",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "17"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_82",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "18",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "18"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_83",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "19",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "19"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G2R5",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "21"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_84",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "20",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "20"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_85",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "21",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "21"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_86",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "22",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "22"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_87",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "23",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "23"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G2R6",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "22"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_88",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "24",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "24"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_89",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "25",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "25"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_90",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "26",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "26"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_91",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "27",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "27"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G2R7",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "23"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_92",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "28",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "28"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_93",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "29",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "29"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_94",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "30",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "30"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_95",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "31",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "31"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G3R0",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "24"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_96",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "32",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "32"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_97",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "33",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "33"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_98",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "34",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "34"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_99",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "35",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "35"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G3R1",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "25"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_100",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "36",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "36"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_101",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "37",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "37"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_102",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "38",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "38"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_103",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "39",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "39"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G3R2",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "26"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_104",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "40",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "40"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_105",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "41",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "41"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_106",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "42",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "42"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_107",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "43",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "43"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G3R3",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "27"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_108",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "44",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "44"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_109",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "45",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "45"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_110",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "46",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "46"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_111",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "47",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "47"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G3R4",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "28"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_112",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "48",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "48"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_113",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "49",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "49"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_114",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "50",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "50"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_115",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "51",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "51"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G3R5",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "29"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_116",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "52",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "52"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_117",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "53",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "53"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_118",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "54",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "54"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_119",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "55",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "55"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G3R6",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "30"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_120",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "56",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "56"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_121",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "57",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "57"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_122",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "58",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "58"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_123",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "59",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "59"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rtr_G3R7",
+      "type": "merlin.hr_router",
+      "params": {
+        "num_ports": "13",
+        "id": "31"
+      },
+      "params_global_sets": [
+        "hr_router_2_params"
+      ],
+      "subcomponents": [
+        {
+          "slot_name": "topology",
+          "slot_number": 0,
+          "type": "merlin.dragonfly",
+          "params": {
+            "intergroup_per_router": "2"
+          },
+          "params_global_sets": [
+            "params_topoDragonFly_0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_124",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "60",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "60"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_125",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "61",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "61"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_126",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "62",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "62"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testNic_127",
+      "type": "merlin.test_nic",
+      "params": {
+        "id": "63",
+        "num_peers": "64"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "networkIF",
+          "slot_number": 0,
+          "type": "merlin.linkcontrol",
+          "params": {
+            "logical_nid": "63"
+          },
+          "params_global_sets": [
+            "params_LinkControl_3"
+          ]
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "name": "link_g0r0h0",
+      "left": {
+        "component": "testNic_0:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R0",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0h1",
+      "left": {
+        "component": "testNic_1:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R0",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0h2",
+      "left": {
+        "component": "testNic_2:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R0",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0h3",
+      "left": {
+        "component": "testNic_3:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R0",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0r1",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port4",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R1",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0r2",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port5",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R2",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0r3",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R3",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0r4",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R4",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0r5",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0r6",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r0r7",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g1r0",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R0",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g2r0",
+      "left": {
+        "component": "rtr_G0R0",
+        "port": "port12",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R0",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1h0",
+      "left": {
+        "component": "testNic_4:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R1",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1h1",
+      "left": {
+        "component": "testNic_5:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R1",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1h2",
+      "left": {
+        "component": "testNic_6:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R1",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1h3",
+      "left": {
+        "component": "testNic_7:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R1",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1r2",
+      "left": {
+        "component": "rtr_G0R1",
+        "port": "port5",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R2",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1r3",
+      "left": {
+        "component": "rtr_G0R1",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R3",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1r4",
+      "left": {
+        "component": "rtr_G0R1",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R4",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1r5",
+      "left": {
+        "component": "rtr_G0R1",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1r6",
+      "left": {
+        "component": "rtr_G0R1",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r1r7",
+      "left": {
+        "component": "rtr_G0R1",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g3r0",
+      "left": {
+        "component": "rtr_G0R1",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R0",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g1r1",
+      "left": {
+        "component": "rtr_G0R1",
+        "port": "port12",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R1",
+        "port": "port12",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2h0",
+      "left": {
+        "component": "testNic_8:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R2",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2h1",
+      "left": {
+        "component": "testNic_9:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R2",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2h2",
+      "left": {
+        "component": "testNic_10:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R2",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2h3",
+      "left": {
+        "component": "testNic_11:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R2",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2r3",
+      "left": {
+        "component": "rtr_G0R2",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R3",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2r4",
+      "left": {
+        "component": "rtr_G0R2",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R4",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2r5",
+      "left": {
+        "component": "rtr_G0R2",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2r6",
+      "left": {
+        "component": "rtr_G0R2",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r2r7",
+      "left": {
+        "component": "rtr_G0R2",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g2r1",
+      "left": {
+        "component": "rtr_G0R2",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R1",
+        "port": "port12",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g3r1",
+      "left": {
+        "component": "rtr_G0R2",
+        "port": "port12",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R1",
+        "port": "port12",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r3h0",
+      "left": {
+        "component": "testNic_12:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R3",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r3h1",
+      "left": {
+        "component": "testNic_13:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R3",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r3h2",
+      "left": {
+        "component": "testNic_14:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R3",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r3h3",
+      "left": {
+        "component": "testNic_15:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R3",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r3r4",
+      "left": {
+        "component": "rtr_G0R3",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R4",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r3r5",
+      "left": {
+        "component": "rtr_G0R3",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r3r6",
+      "left": {
+        "component": "rtr_G0R3",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r3r7",
+      "left": {
+        "component": "rtr_G0R3",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g1r2",
+      "left": {
+        "component": "rtr_G0R3",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R3",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g2r2",
+      "left": {
+        "component": "rtr_G0R3",
+        "port": "port12",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r4h0",
+      "left": {
+        "component": "testNic_16:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R4",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r4h1",
+      "left": {
+        "component": "testNic_17:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R4",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r4h2",
+      "left": {
+        "component": "testNic_18:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R4",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r4h3",
+      "left": {
+        "component": "testNic_19:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R4",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r4r5",
+      "left": {
+        "component": "rtr_G0R4",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r4r6",
+      "left": {
+        "component": "rtr_G0R4",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r4r7",
+      "left": {
+        "component": "rtr_G0R4",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g3r2",
+      "left": {
+        "component": "rtr_G0R4",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r5h0",
+      "left": {
+        "component": "testNic_20:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r5h1",
+      "left": {
+        "component": "testNic_21:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r5h2",
+      "left": {
+        "component": "testNic_22:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r5h3",
+      "left": {
+        "component": "testNic_23:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R5",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r5r6",
+      "left": {
+        "component": "rtr_G0R5",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port9",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r5r7",
+      "left": {
+        "component": "rtr_G0R5",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port9",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g1r3",
+      "left": {
+        "component": "rtr_G0R5",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r6h0",
+      "left": {
+        "component": "testNic_24:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r6h1",
+      "left": {
+        "component": "testNic_25:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r6h2",
+      "left": {
+        "component": "testNic_26:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r6h3",
+      "left": {
+        "component": "testNic_27:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R6",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r6r7",
+      "left": {
+        "component": "rtr_G0R6",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port10",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g2r3",
+      "left": {
+        "component": "rtr_G0R6",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r7h0",
+      "left": {
+        "component": "testNic_28:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r7h1",
+      "left": {
+        "component": "testNic_29:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r7h2",
+      "left": {
+        "component": "testNic_30:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g0r7h3",
+      "left": {
+        "component": "testNic_31:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G0R7",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g0g3r3",
+      "left": {
+        "component": "rtr_G0R7",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0h0",
+      "left": {
+        "component": "testNic_32:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R0",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0h1",
+      "left": {
+        "component": "testNic_33:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R0",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0h2",
+      "left": {
+        "component": "testNic_34:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R0",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0h3",
+      "left": {
+        "component": "testNic_35:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R0",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0r1",
+      "left": {
+        "component": "rtr_G1R0",
+        "port": "port4",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R1",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0r2",
+      "left": {
+        "component": "rtr_G1R0",
+        "port": "port5",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R2",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0r3",
+      "left": {
+        "component": "rtr_G1R0",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R3",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0r4",
+      "left": {
+        "component": "rtr_G1R0",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R4",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0r5",
+      "left": {
+        "component": "rtr_G1R0",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0r6",
+      "left": {
+        "component": "rtr_G1R0",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r0r7",
+      "left": {
+        "component": "rtr_G1R0",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g1g2r0",
+      "left": {
+        "component": "rtr_G1R0",
+        "port": "port12",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R0",
+        "port": "port12",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1h0",
+      "left": {
+        "component": "testNic_36:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R1",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1h1",
+      "left": {
+        "component": "testNic_37:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R1",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1h2",
+      "left": {
+        "component": "testNic_38:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R1",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1h3",
+      "left": {
+        "component": "testNic_39:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R1",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1r2",
+      "left": {
+        "component": "rtr_G1R1",
+        "port": "port5",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R2",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1r3",
+      "left": {
+        "component": "rtr_G1R1",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R3",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1r4",
+      "left": {
+        "component": "rtr_G1R1",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R4",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1r5",
+      "left": {
+        "component": "rtr_G1R1",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1r6",
+      "left": {
+        "component": "rtr_G1R1",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r1r7",
+      "left": {
+        "component": "rtr_G1R1",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g1g3r0",
+      "left": {
+        "component": "rtr_G1R1",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R0",
+        "port": "port12",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2h0",
+      "left": {
+        "component": "testNic_40:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R2",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2h1",
+      "left": {
+        "component": "testNic_41:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R2",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2h2",
+      "left": {
+        "component": "testNic_42:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R2",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2h3",
+      "left": {
+        "component": "testNic_43:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R2",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2r3",
+      "left": {
+        "component": "rtr_G1R2",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R3",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2r4",
+      "left": {
+        "component": "rtr_G1R2",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R4",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2r5",
+      "left": {
+        "component": "rtr_G1R2",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2r6",
+      "left": {
+        "component": "rtr_G1R2",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r2r7",
+      "left": {
+        "component": "rtr_G1R2",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g1g2r1",
+      "left": {
+        "component": "rtr_G1R2",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R2",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g1g3r1",
+      "left": {
+        "component": "rtr_G1R2",
+        "port": "port12",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R2",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r3h0",
+      "left": {
+        "component": "testNic_44:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R3",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r3h1",
+      "left": {
+        "component": "testNic_45:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R3",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r3h2",
+      "left": {
+        "component": "testNic_46:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R3",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r3h3",
+      "left": {
+        "component": "testNic_47:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R3",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r3r4",
+      "left": {
+        "component": "rtr_G1R3",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R4",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r3r5",
+      "left": {
+        "component": "rtr_G1R3",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r3r6",
+      "left": {
+        "component": "rtr_G1R3",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r3r7",
+      "left": {
+        "component": "rtr_G1R3",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g1g2r2",
+      "left": {
+        "component": "rtr_G1R3",
+        "port": "port12",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port12",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r4h0",
+      "left": {
+        "component": "testNic_48:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R4",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r4h1",
+      "left": {
+        "component": "testNic_49:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R4",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r4h2",
+      "left": {
+        "component": "testNic_50:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R4",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r4h3",
+      "left": {
+        "component": "testNic_51:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R4",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r4r5",
+      "left": {
+        "component": "rtr_G1R4",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r4r6",
+      "left": {
+        "component": "rtr_G1R4",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r4r7",
+      "left": {
+        "component": "rtr_G1R4",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g1g3r2",
+      "left": {
+        "component": "rtr_G1R4",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port12",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r5h0",
+      "left": {
+        "component": "testNic_52:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r5h1",
+      "left": {
+        "component": "testNic_53:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r5h2",
+      "left": {
+        "component": "testNic_54:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r5h3",
+      "left": {
+        "component": "testNic_55:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R5",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r5r6",
+      "left": {
+        "component": "rtr_G1R5",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port9",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r5r7",
+      "left": {
+        "component": "rtr_G1R5",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port9",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r6h0",
+      "left": {
+        "component": "testNic_56:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r6h1",
+      "left": {
+        "component": "testNic_57:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r6h2",
+      "left": {
+        "component": "testNic_58:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r6h3",
+      "left": {
+        "component": "testNic_59:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R6",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r6r7",
+      "left": {
+        "component": "rtr_G1R6",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port10",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g1g2r3",
+      "left": {
+        "component": "rtr_G1R6",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r7h0",
+      "left": {
+        "component": "testNic_60:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r7h1",
+      "left": {
+        "component": "testNic_61:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r7h2",
+      "left": {
+        "component": "testNic_62:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g1r7h3",
+      "left": {
+        "component": "testNic_63:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G1R7",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g1g3r3",
+      "left": {
+        "component": "rtr_G1R7",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0h0",
+      "left": {
+        "component": "testNic_64:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R0",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0h1",
+      "left": {
+        "component": "testNic_65:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R0",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0h2",
+      "left": {
+        "component": "testNic_66:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R0",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0h3",
+      "left": {
+        "component": "testNic_67:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R0",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0r1",
+      "left": {
+        "component": "rtr_G2R0",
+        "port": "port4",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R1",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0r2",
+      "left": {
+        "component": "rtr_G2R0",
+        "port": "port5",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R2",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0r3",
+      "left": {
+        "component": "rtr_G2R0",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0r4",
+      "left": {
+        "component": "rtr_G2R0",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R4",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0r5",
+      "left": {
+        "component": "rtr_G2R0",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0r6",
+      "left": {
+        "component": "rtr_G2R0",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r0r7",
+      "left": {
+        "component": "rtr_G2R0",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1h0",
+      "left": {
+        "component": "testNic_68:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R1",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1h1",
+      "left": {
+        "component": "testNic_69:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R1",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1h2",
+      "left": {
+        "component": "testNic_70:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R1",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1h3",
+      "left": {
+        "component": "testNic_71:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R1",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1r2",
+      "left": {
+        "component": "rtr_G2R1",
+        "port": "port5",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R2",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1r3",
+      "left": {
+        "component": "rtr_G2R1",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1r4",
+      "left": {
+        "component": "rtr_G2R1",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R4",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1r5",
+      "left": {
+        "component": "rtr_G2R1",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1r6",
+      "left": {
+        "component": "rtr_G2R1",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r1r7",
+      "left": {
+        "component": "rtr_G2R1",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g2g3r0",
+      "left": {
+        "component": "rtr_G2R1",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R1",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2h0",
+      "left": {
+        "component": "testNic_72:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R2",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2h1",
+      "left": {
+        "component": "testNic_73:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R2",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2h2",
+      "left": {
+        "component": "testNic_74:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R2",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2h3",
+      "left": {
+        "component": "testNic_75:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R2",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2r3",
+      "left": {
+        "component": "rtr_G2R2",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2r4",
+      "left": {
+        "component": "rtr_G2R2",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R4",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2r5",
+      "left": {
+        "component": "rtr_G2R2",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2r6",
+      "left": {
+        "component": "rtr_G2R2",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r2r7",
+      "left": {
+        "component": "rtr_G2R2",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g2g3r1",
+      "left": {
+        "component": "rtr_G2R2",
+        "port": "port12",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R2",
+        "port": "port12",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r3h0",
+      "left": {
+        "component": "testNic_76:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r3h1",
+      "left": {
+        "component": "testNic_77:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r3h2",
+      "left": {
+        "component": "testNic_78:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r3h3",
+      "left": {
+        "component": "testNic_79:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R3",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r3r4",
+      "left": {
+        "component": "rtr_G2R3",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R4",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r3r5",
+      "left": {
+        "component": "rtr_G2R3",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r3r6",
+      "left": {
+        "component": "rtr_G2R3",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r3r7",
+      "left": {
+        "component": "rtr_G2R3",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r4h0",
+      "left": {
+        "component": "testNic_80:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R4",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r4h1",
+      "left": {
+        "component": "testNic_81:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R4",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r4h2",
+      "left": {
+        "component": "testNic_82:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R4",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r4h3",
+      "left": {
+        "component": "testNic_83:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R4",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r4r5",
+      "left": {
+        "component": "rtr_G2R4",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r4r6",
+      "left": {
+        "component": "rtr_G2R4",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r4r7",
+      "left": {
+        "component": "rtr_G2R4",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g2g3r2",
+      "left": {
+        "component": "rtr_G2R4",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r5h0",
+      "left": {
+        "component": "testNic_84:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r5h1",
+      "left": {
+        "component": "testNic_85:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r5h2",
+      "left": {
+        "component": "testNic_86:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r5h3",
+      "left": {
+        "component": "testNic_87:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R5",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r5r6",
+      "left": {
+        "component": "rtr_G2R5",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port9",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r5r7",
+      "left": {
+        "component": "rtr_G2R5",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port9",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r6h0",
+      "left": {
+        "component": "testNic_88:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r6h1",
+      "left": {
+        "component": "testNic_89:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r6h2",
+      "left": {
+        "component": "testNic_90:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r6h3",
+      "left": {
+        "component": "testNic_91:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R6",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r6r7",
+      "left": {
+        "component": "rtr_G2R6",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port10",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r7h0",
+      "left": {
+        "component": "testNic_92:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r7h1",
+      "left": {
+        "component": "testNic_93:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r7h2",
+      "left": {
+        "component": "testNic_94:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g2r7h3",
+      "left": {
+        "component": "testNic_95:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G2R7",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "global_link_g2g3r3",
+      "left": {
+        "component": "rtr_G2R7",
+        "port": "port11",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port11",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0h0",
+      "left": {
+        "component": "testNic_96:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R0",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0h1",
+      "left": {
+        "component": "testNic_97:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R0",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0h2",
+      "left": {
+        "component": "testNic_98:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R0",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0h3",
+      "left": {
+        "component": "testNic_99:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R0",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0r1",
+      "left": {
+        "component": "rtr_G3R0",
+        "port": "port4",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R1",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0r2",
+      "left": {
+        "component": "rtr_G3R0",
+        "port": "port5",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R2",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0r3",
+      "left": {
+        "component": "rtr_G3R0",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0r4",
+      "left": {
+        "component": "rtr_G3R0",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0r5",
+      "left": {
+        "component": "rtr_G3R0",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0r6",
+      "left": {
+        "component": "rtr_G3R0",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r0r7",
+      "left": {
+        "component": "rtr_G3R0",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port4",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1h0",
+      "left": {
+        "component": "testNic_100:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R1",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1h1",
+      "left": {
+        "component": "testNic_101:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R1",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1h2",
+      "left": {
+        "component": "testNic_102:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R1",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1h3",
+      "left": {
+        "component": "testNic_103:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R1",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1r2",
+      "left": {
+        "component": "rtr_G3R1",
+        "port": "port5",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R2",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1r3",
+      "left": {
+        "component": "rtr_G3R1",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1r4",
+      "left": {
+        "component": "rtr_G3R1",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1r5",
+      "left": {
+        "component": "rtr_G3R1",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1r6",
+      "left": {
+        "component": "rtr_G3R1",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r1r7",
+      "left": {
+        "component": "rtr_G3R1",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port5",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2h0",
+      "left": {
+        "component": "testNic_104:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R2",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2h1",
+      "left": {
+        "component": "testNic_105:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R2",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2h2",
+      "left": {
+        "component": "testNic_106:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R2",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2h3",
+      "left": {
+        "component": "testNic_107:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R2",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2r3",
+      "left": {
+        "component": "rtr_G3R2",
+        "port": "port6",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2r4",
+      "left": {
+        "component": "rtr_G3R2",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2r5",
+      "left": {
+        "component": "rtr_G3R2",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2r6",
+      "left": {
+        "component": "rtr_G3R2",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r2r7",
+      "left": {
+        "component": "rtr_G3R2",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port6",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r3h0",
+      "left": {
+        "component": "testNic_108:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r3h1",
+      "left": {
+        "component": "testNic_109:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r3h2",
+      "left": {
+        "component": "testNic_110:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r3h3",
+      "left": {
+        "component": "testNic_111:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R3",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r3r4",
+      "left": {
+        "component": "rtr_G3R3",
+        "port": "port7",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r3r5",
+      "left": {
+        "component": "rtr_G3R3",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r3r6",
+      "left": {
+        "component": "rtr_G3R3",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r3r7",
+      "left": {
+        "component": "rtr_G3R3",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port7",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r4h0",
+      "left": {
+        "component": "testNic_112:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r4h1",
+      "left": {
+        "component": "testNic_113:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r4h2",
+      "left": {
+        "component": "testNic_114:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r4h3",
+      "left": {
+        "component": "testNic_115:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R4",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r4r5",
+      "left": {
+        "component": "rtr_G3R4",
+        "port": "port8",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r4r6",
+      "left": {
+        "component": "rtr_G3R4",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r4r7",
+      "left": {
+        "component": "rtr_G3R4",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port8",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r5h0",
+      "left": {
+        "component": "testNic_116:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r5h1",
+      "left": {
+        "component": "testNic_117:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r5h2",
+      "left": {
+        "component": "testNic_118:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r5h3",
+      "left": {
+        "component": "testNic_119:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R5",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r5r6",
+      "left": {
+        "component": "rtr_G3R5",
+        "port": "port9",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port9",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r5r7",
+      "left": {
+        "component": "rtr_G3R5",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port9",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r6h0",
+      "left": {
+        "component": "testNic_120:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r6h1",
+      "left": {
+        "component": "testNic_121:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r6h2",
+      "left": {
+        "component": "testNic_122:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r6h3",
+      "left": {
+        "component": "testNic_123:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R6",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r6r7",
+      "left": {
+        "component": "rtr_G3R6",
+        "port": "port10",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port10",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r7h0",
+      "left": {
+        "component": "testNic_124:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port0",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r7h1",
+      "left": {
+        "component": "testNic_125:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port1",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r7h2",
+      "left": {
+        "component": "testNic_126:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port2",
+        "latency": "20ns"
+      }
+    },
+    {
+      "name": "link_g3r7h3",
+      "left": {
+        "component": "testNic_127:networkIF[0]",
+        "port": "rtr_port",
+        "latency": "20ns"
+      },
+      "right": {
+        "component": "rtr_G3R7",
+        "port": "port3",
+        "latency": "20ns"
+      }
+    }
+  ]
+}

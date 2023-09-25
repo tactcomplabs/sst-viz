@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style>
+         body { margin: 0; }
+         .info-box {
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         border: 1px solid black;
+         padding: 10px;
+         background-color: white;
+         display: none;
+         }
+      </style>
+      <!-- <script src="//unpkg.com/three"></script> -->
+      <!-- <script src="//unpkg.com/3d-force-graph"></script> -->
+      <script src="https://unpkg.com/three@latest/build/three.min.js"></script>
+      <script src="https://unpkg.com/3d-force-graph@latest/dist/3d-force-graph.min.js"></script>
+      <!-- <script type="module"> -->
+      <!--    import * as THREE from 'three'; -->
+      <!--    import ForceGraph3D from '3d-force-graph'; -->
+      <!-- </script> -->
+   </head>
+   <body>
+      <div id="current-cycle" style="position: absolute; top: 10px; left: 10px; z-index: 11; color: white; font-weight: bold;"></div>
+      <div id="3d-graph"></div>
+      <div class="info-box" id="info-box"></div>
+      <button id="play-button" style="position: absolute; bottom: 10px; left: 10px;">Play</button>
+      <script>
+         const appState = {
+           activePackets: [],
+           currentCycle: 0,
+           packetData: [],
+           counter: null,
+           particleGroup: new THREE.Group(),
+           Graph: null,
+           particleStates: {},
+           isPlaying: false
+         };
+         
+         // Inside updateUI function
+         function updateUI() {
+         console.log(`UpdateUI: Cycle ${appState.currentCycle} - Adding ${appState.activePackets.length} active packets`);
+         appState.counter.innerHTML = 'Cycle: ' + appState.currentCycle;
+         
+         console.log(`Cycle ${appState.currentCycle}: Packets in scene = ${appState.particleGroup.children.length}`);
+         
+         // Log particles before removal
+         console.log("Particles before removal: ", appState.particleGroup.children.length);
+         
+         if (appState.particleStates[appState.currentCycle]) {
+         appState.activePackets = deepCopyActivePackets(appState.particleStates[appState.currentCycle]);
+         }
+         
+         // Clear existing particles related to active packets
+         appState.particleGroup.children = appState.particleGroup.children.filter(particle => {
+         const packet = appState.activePackets.find(p => 
+           p.particle === particle // Assuming you've linked the particle to the packet
+         );
+         return packet && packet.remainingCycles > 0;
+         });
+         
+         // Log particles after removal
+         console.log("Particles after removal: ", appState.particleGroup.children.length);
+         
+         appState.activePackets.forEach((packet, index) => {
+         if (packet.remainingCycles > 0) {
+           const t = 1 - (packet.remainingCycles / 20);
+         
+           const sourceNode = appState.Graph.graphData().nodes.find(n => n.id === packet.source);
+           const destNode = appState.Graph.graphData().nodes.find(n => n.id === packet.destination);
+         
+           const x = THREE.MathUtils.lerp(sourceNode.x, destNode.x, t);
+           const y = THREE.MathUtils.lerp(sourceNode.y, destNode.y, t);
+           const z = THREE.MathUtils.lerp(sourceNode.z, destNode.z, t);
+         
+           const geometry = new THREE.SphereGeometry(1, 16, 16);
+           const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+           const particle = new THREE.Mesh(geometry, material);
+         
+           // Example packet data = id
+           particle.userData.source = packet.source
+           particle.userData.destination = packet.destination
+           particle.userData.data = packet.data;
+           particle.position.set(x, y, z);
+           packet.particle = particle;
+           appState.particleGroup.add(particle);
+         
+           packet.remainingCycles--;
+         }
+         });
+         // Check active packets
+         console.log("Active packets: ", JSON.stringify(appState.activePackets));
+         }
+         
+         function deepCopyActivePackets(activePackets) {
+         return activePackets.map(packet => ({
+         source: packet.source,
+         destination: packet.destination,
+         remainingCycles: packet.remainingCycles,
+         data: packet.data
+         }));
+         }
+         
+         
+         // Function to populate activePackets for a given cycle
+         function populateActivePacketsForCycle() {
+         const newActivePackets = appState.packetData.filter(packet => packet.cycle === appState.currentCycle);
+         
+         // Initialize new packets
+         newActivePackets.forEach(packet => {
+         appState.activePackets.push({
+           source: packet.source,
+           destination: packet.destination,
+           remainingCycles: 20,  // Initialize with total cycles needed for this packet
+           data: packet.data  // Include the new "data" field
+         });
+         });
+         
+         // Store the current state using the custom deep copy function
+         appState.particleStates[appState.currentCycle] = deepCopyActivePackets(appState.activePackets);
+         }
+         
+         function fetchAndInitGraph(){
+         fetch('dfly.json')
+         .then(response => response.json())
+         .then(data => {
+               appState.currentCycle = 0;
+               // Create nodes based on the "left" and "right" elements in each "link"
+               const nodeSet = new Set();
+               const nodes = [];
+               const links = [];
+         
+               data.links.forEach(link => {
+                 const left = link.left.component.split(':')[0];
+                 const right = link.right.component.split(':')[0];
+                 const latency = link.latency;
+                 const link_bw = 4;
+         
+                 if (!nodeSet.has(left)) {
+                   nodes.push({ id: left });
+                   nodeSet.add(left);
+                 }
+         
+                 if (!nodeSet.has(right)) {
+                   nodes.push({ id: right });
+                   nodeSet.add(right);
+                 }
+         
+                 links.push({ source: left, target: right, name: link.name, link_bw: "4GB/s"});
+               });
+         
+           const graphData = { nodes, links };
+         
+           // Initialize the graph
+           appState.Graph = ForceGraph3D()(document.getElementById('3d-graph'))
+             .linkDirectionalParticleColor(() => 'red')
+             .linkDirectionalParticleWidth(4)
+             .graphData(graphData)
+         
+         .onNodeClick(node => {
+         const packetsFromNode = appState.activePackets.filter(packet => packet.source === node.id && packet.remainingCycles > 0);
+         
+         const packetOptions = packetsFromNode.map(packet => `<option value="${packet.destination}">${packet.destination}</option>`).join('');
+         
+         const infoBox = document.getElementById('info-box');
+         infoBox.innerHTML = `
+         <table>
+           <tr>
+             <th>Node ID</th>
+             <td>${node.id}</td>
+           </tr>
+           <tr>
+             <th>Packets In Flight</th>
+             <td>${packetsFromNode.length}</td>
+           </tr>
+           <tr>
+             <th>Destinations</th>
+             <td>
+               <select id="destinationSelect">
+                 ${packetOptions}
+               </select>
+             </td>
+           </tr>
+         </table>
+         <div id="packetDataDisplay"></div>
+         `;
+         
+         const destinationSelect = document.getElementById("destinationSelect");
+         const packetDataDisplay = document.getElementById("packetDataDisplay");
+         
+         // Manually display packet data if only one option
+         if (packetsFromNode.length === 1) {
+         const sentAtCycle = appState.currentCycle - packetsFromNode[0].remainingCycles;  // Calculate the cycle at which the packet was sent
+         packetDataDisplay.innerHTML = `<strong>Packet Data:</strong> ${packetsFromNode[0].data} <br> <strong>Sent at Cycle:</strong> ${sentAtCycle}`;
+         }
+         
+         destinationSelect.addEventListener('change', (event) => {
+         const selectedDestination = event.target.value;
+         const correspondingPacket = packetsFromNode.find(packet => packet.destination === selectedDestination);
+         const sentAtCycle = appState.currentCycle - correspondingPacket.remainingCycles;  // Calculate the cycle at which the packet was sent
+         packetDataDisplay.innerHTML = `<strong>Packet Data:</strong> ${correspondingPacket ? correspondingPacket.data : 'N/A'} <br> <strong>Sent at Cycle:</strong> ${correspondingPacket ? sentAtCycle : 'N/A'}`;
+         });
+         
+         infoBox.style.display = 'block';
+         })
+         
+         
+           .onLinkClick(link => {
+         
+           const activePacketsOnLink = appState.activePackets.filter(packet => {
+             return packet.source === link.source.id && packet.destination === link.target.id;
+           }).length;
+               const infoBox = document.getElementById('info-box');
+               infoBox.innerHTML = `Link bw: ${link.link_bw}, Active packets: ${activePacketsOnLink}`;
+               infoBox.style.display = 'block';
+         
+             });
+         
+           // Add the particle group to the scene
+           appState.Graph.scene().add(appState.particleGroup);
+         
+           });
+         }
+         
+         // Fetch and Initialize Packet Data
+         function fetchAndInitPacketData() {
+           fetch('data.json')
+             .then(res => res.json())
+             .then(data => {
+               appState.packetData = data;
+               populateActivePacketsForCycle();
+               // attachSliderEvent();
+               updateUI();
+             });
+         }
+         
+         // Auto-increment Function
+         function autoIncrement() {
+         // Check if app is playing... if not, return
+         if (!appState.isPlaying) {
+         return;
+         }
+         
+         if (appState.currentCycle < 1000){
+         appState.currentCycle++;
+         // slider.value = appState.currentCycle;
+         populateActivePacketsForCycle();
+         updateUI();
+         } else {
+         return;
+         }
+         
+         requestAnimationFrame(autoIncrement);
+         }
+         
+         function initApp(){
+         appState.counter = document.getElementById('current-cycle');
+         fetchAndInitGraph();
+         fetchAndInitPacketData();
+         
+         const raycaster = new THREE.Raycaster();
+         const mouse = new THREE.Vector2();
+         
+         function onMouseClick(event) {
+         event.preventDefault();
+         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+         
+         raycaster.setFromCamera(mouse, appState.Graph.camera());
+         const intersects = raycaster.intersectObjects(appState.particleGroup.children);
+         
+         if (intersects.length > 0) {
+           // const infoBox = document.getElementById('info-box');
+           const infoBox = document.getElementById('info-box');
+           infoBox.innerHTML = `
+             <table>
+               <tr>
+                 <th>Source</th>
+                 <td>${intersects[0].object.userData.source}</td>
+               </tr>
+               <tr>
+                 <th>Destination</th>
+                 <td>${intersects[0].object.userData.destination}</td>
+               </tr>
+               <tr>
+                 <th>Data</th>
+                 <td>${intersects[0].object.userData.data}</td>
+               </tr>
+             </table>
+           `;
+               infoBox.style.display = 'block';
+             }
+           }
+         
+         window.addEventListener('click', onMouseClick, false);
+         document.getElementById('play-button').addEventListener('click', function() {
+         appState.isPlaying = !appState.isPlaying;  // Toggle play state
+         if (appState.isPlaying) {
+           this.innerText = 'Pause';  // Change button text to "Pause"
+           requestAnimationFrame(autoIncrement);  // Start auto-incrementing
+         } else {
+           this.innerText = 'Play';  // Change button text back to "Play"
+         }
+         });
+         }
+         initApp();
+         
+      </script>
+   </body>
+</html>
+
